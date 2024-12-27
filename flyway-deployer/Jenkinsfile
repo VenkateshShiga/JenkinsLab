@@ -25,11 +25,11 @@ pipeline {
         stage('Vault Credentials Checkout') {
             steps {
                 script {
-                    sh """
-                        python3 shared-library/${env.VAULT_PYTHON_SCRIPT} \
-                            --db_name=${params.DB_NAME} \
-                            --schema_name=${params.SCHEMA_NAME}
-                    """
+                    //sh """
+                    //    python3 shared-library/${env.VAULT_PYTHON_SCRIPT} \
+                    //        --db_name=${params.DB_NAME} \
+                    //        --schema_name=${params.SCHEMA_NAME}
+                   // """
                 }
             }
         }
