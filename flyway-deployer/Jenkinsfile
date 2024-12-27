@@ -17,7 +17,8 @@ pipeline {
             steps {
                 script {
                     sh 'rm -rf shared-library' // Cleanup if necessary
-                    sh "git clone ${env.SHARED_LIBRARY_REPO} shared-library"
+                    git(credentialsId: 'VenkateshShiga',
+                        url: SHARED_LIBRARY_REPO)
                 }
             }
         }
