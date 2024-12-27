@@ -4,12 +4,13 @@ pipeline {
         string(name: 'DB_NAME', defaultValue: '', description: 'Database name to deploy SQL code')
         string(name: 'SCHEMA_NAME', defaultValue: '', description: 'Schema managed by Flyway')
         string(name: 'DB_CONNECTION', defaultValue: '', description: 'JDBC URL for PostgreSQL DB connection')
+        choice name: 'ACTION', choices: ['Info', 'Baseline', 'Migrate']
         string(name: 'VERSION', defaultValue: '', description: 'Flyway deployment file version')
     }
     environment {
-        SHARED_LIBRARY_REPO = 'https://your-git-repo.git' // Replace with your shared library Git repo URL
-        VAULT_PYTHON_SCRIPT = 'path/to/vault_script.py'  // Path in shared library to Vault script
-        FLYWAY_SHELL_SCRIPT = 'path/to/flyway_script.sh' // Path in shared library to Flyway script
+        SHARED_LIBRARY_REPO = 'https://github.com/VenkateshShiga/jk_shared_library.git' // Replace with your shared library Git repo URL
+        VAULT_PYTHON_SCRIPT = 'vault_script.py'  // Path in shared library to Vault script
+        FLYWAY_SHELL_SCRIPT = 'flyway_script.sh' // Path in shared library to Flyway script
     }
     stages {
         stage('Git Clone Shared Library') {
