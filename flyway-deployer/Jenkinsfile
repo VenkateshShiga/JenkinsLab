@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'DB_NAME', defaultValue: '', description: 'Database name to deploy SQL code')
+        string(name: 'SCHEMA_NAME', defaultValue: '', description: 'Schema managed by Flyway')
+        string(name: 'DB_CONNECTION', defaultValue: '', description: 'JDBC URL for PostgreSQL DB connection')
+        string(name: 'VERSION', defaultValue: '', description: 'Flyway deployment file version')
+    }
+    environment {
+        SHARED_LIBRARY_REPO = 'https://your-git-repo.git' // Replace with your shared library Git repo URL
+        VAULT_PYTHON_SCRIPT = 'path/to/vault_script.py'  // Path in shared library to Vault script
+        FLYWAY_SHELL_SCRIPT = 'path/to/flyway_script.sh' // Path in shared library to Flyway script
+    }
+    stages {
+        stage('Git Clone Shared Library') {
+            steps {
+                script {
+                    sh 'rm -rf shared-library' // Cleanup if necessary
+                    sh "git clone ${env.SHARED_LIBRARY_REPO} shared-library"
+                }
+            }
+        }
+        stage('Vault Credentials Checkout') {
+            steps {
+                script {
+                    sh """
+                        python3 shared-library/${env.VAULT_PYTHON_SCRIPT} \
+                            --db_name=${params.DB_NAME} \
+                            --schema_name=${params.SCHEMA_NAME}
+                    """
+                }
+            }
+        }
+        stage('Deploy Database') {
+            agent {
+                docker {
+                    image 'flyway/flyway:latest'
+                }
+            }
+            steps {
+                script {
+                    sh """
+                        shared-library/${env.FLYWAY_SHELL_SCRIPT} \
+                            --db_connection="${params.DB_CONNECTION}" \
+                            --schema_name="${params.SCHEMA_NAME}" \
+                            --version="${params.VERSION}"
+                    """
+                }
+            }
+        }
+    }
+}
