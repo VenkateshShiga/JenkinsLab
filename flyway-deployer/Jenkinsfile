@@ -30,6 +30,7 @@ pipeline {
                     //        --db_name=${params.DB_NAME} \
                     //        --schema_name=${params.SCHEMA_NAME}
                    // """
+                    sh 'ls -lart ./*' 
                 }
             }
         }
