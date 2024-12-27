@@ -17,10 +17,8 @@ pipeline {
             steps {
                 script {
                     sh 'rm -rf shared-library' // Cleanup if necessary
-                    git(branch: 'main',
-                        credentialsId: 'jk_clone',
-                        url: ${env.SHARED_LIBRARY_REPO})
-                    sh "ls -lart ./*" 
+                    git credentialsId: 'jk_clone', url: ${env.SHARED_LIBRARY_REPO}
+                    sh 'ls -lart ./*' 
                 }
             }
         }
