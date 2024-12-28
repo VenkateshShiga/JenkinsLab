@@ -10,29 +10,16 @@ pipeline {
         choice name: 'ACTION', choices: ['Info', 'Baseline', 'Migrate']
         string(name: 'VERSION', defaultValue: '', description: 'Flyway deployment file version')
     }
-    environment {
-        VAULT_PYTHON_SCRIPT = 'vault_script.py'  // Path in shared library to Vault script
-        FLYWAY_SHELL_SCRIPT = 'flyway_script.sh' // Path in shared library to Flyway script
-    }
     stages {
-        stage('Git Clone Shared Library') {
+        stage('Retrieve Vault Credentials') {
             steps {
                 script {
-                    //sh 'rm -rf shared-library' // Cleanup if necessary
-                    //git credentialsId: 'jk_clone', url: ${env.SHARED_LIBRARY_REPO}
-                    sh 'ls -lart ./*' 
-                }
-            }
-        }
-        stage('Vault Credentials Checkout') {
-            steps {
-                script {
-                    //sh """
-                    //    python3 shared-library/${env.VAULT_PYTHON_SCRIPT} \
-                    //        --db_name=${params.DB_NAME} \
-                    //        --schema_name=${params.SCHEMA_NAME}
-                   // """
-                    sh 'ls -lart ./*' 
+                    def credentials = retrieveVaultCredentials(
+                    dbName: params.DB_NAME,
+                    schemaName: params.SCHEMA_NAME
+                    )
+                    env.DB_USERNAME = credentials.username
+                    env.DB_PASSWORD = credentials.password
                 }
             }
         }
