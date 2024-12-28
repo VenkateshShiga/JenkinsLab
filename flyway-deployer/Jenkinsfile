@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     deployDatabase(
-                        dbName: params.DB_NAME
+                        dbName: params.DB_NAME,
                         schemaName: params.SCHEMA_NAME,
                         dbConnection: params.DB_CONNECTION,
                         action: params.ACTION,
