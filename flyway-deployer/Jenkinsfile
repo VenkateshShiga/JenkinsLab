@@ -26,7 +26,8 @@ pipeline {
         stage('Deploy Database') {
             agent {
                 docker {
-                    image 'flyway/flyway:latest'
+                    image 'flyway/flyway:10.13'
+                    args '--entrypoint=\'\''
                 }
             }
             steps {
