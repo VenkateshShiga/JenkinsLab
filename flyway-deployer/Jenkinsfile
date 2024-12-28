@@ -8,7 +8,7 @@ pipeline {
         string(name: 'SCHEMA_NAME', defaultValue: '', description: 'Schema managed by Flyway')
         string(name: 'DB_CONNECTION', defaultValue: '', description: 'JDBC URL for PostgreSQL DB connection')
         choice name: 'ACTION', choices: ['Info', 'Baseline', 'Migrate']
-        string(name: 'VERSION', defaultValue: '', description: 'Flyway deployment file version')
+        string(name: 'VERSION', defaultValue: 'latest', description: 'Flyway deployment file version')
     }
     stages {
         stage('Retrieve Vault Credentials') {
