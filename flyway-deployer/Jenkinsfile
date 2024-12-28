@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    libraries {
+        lib "jk_shared_library@main"
+    }
     parameters {
         string(name: 'DB_NAME', defaultValue: '', description: 'Database name to deploy SQL code')
         string(name: 'SCHEMA_NAME', defaultValue: '', description: 'Schema managed by Flyway')
@@ -8,7 +11,6 @@ pipeline {
         string(name: 'VERSION', defaultValue: '', description: 'Flyway deployment file version')
     }
     environment {
-        SHARED_LIBRARY_REPO = 'https://github.com/VenkateshShiga/jk_shared_library.git' // Replace with your shared library Git repo URL
         VAULT_PYTHON_SCRIPT = 'vault_script.py'  // Path in shared library to Vault script
         FLYWAY_SHELL_SCRIPT = 'flyway_script.sh' // Path in shared library to Flyway script
     }
