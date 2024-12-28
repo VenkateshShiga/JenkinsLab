@@ -31,12 +31,13 @@ pipeline {
             }
             steps {
                 script {
-                    sh """
-                        shared-library/${env.FLYWAY_SHELL_SCRIPT} \
-                            --db_connection="${params.DB_CONNECTION}" \
-                            --schema_name="${params.SCHEMA_NAME}" \
-                            --version="${params.VERSION}"
-                    """
+                    deployDatabase(
+                        dbName: params.DB_NAME
+                        schemaName: params.SCHEMA_NAME,
+                        dbConnection: params.DB_CONNECTION,
+                        action: params.ACTION,
+                        version: params.VERSION
+                    )
                 }
             }
         }
