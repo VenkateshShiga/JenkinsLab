@@ -11,7 +11,6 @@ pipeline {
         string(name: 'VERSION', defaultValue: 'latest', description: 'Flyway deployment file version')
     }
     stages {
-        stages {
         stage('Clone Flyway Repository') {
             steps {
                 script {
