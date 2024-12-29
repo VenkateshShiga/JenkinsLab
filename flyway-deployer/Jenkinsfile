@@ -21,6 +21,8 @@ pipeline {
                     env.DB_USERNAME = credentials.username
                     env.DB_PASSWORD = credentials.password
                     echo "${credentials}"
+                    // Stash the required files
+                    stash name: 'Workspace-files', includes: '**/*'
                 }
             }
         }
@@ -33,6 +35,9 @@ pipeline {
             }
             steps {
                 script {
+                    // Unstash the files needed for deployment
+                    unstash 'Workspace-files'
+                    sh 'ls -la'
                     deployDatabase(
                         dbName: params.DB_NAME,
                         schemaName: params.SCHEMA_NAME,
