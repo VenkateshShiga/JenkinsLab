@@ -38,7 +38,7 @@ pipeline {
                     // Unstash the files needed for deployment
                     unstash 'Workspace-files'
                     sh 'ls -la'
-                    deployDatabase(
+                    unFlywayMigrations(
                         dbName: params.DB_NAME,
                         schemaName: params.SCHEMA_NAME,
                         dbConnection: params.DB_CONNECTION,
