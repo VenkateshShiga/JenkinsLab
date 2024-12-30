@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     cloneFlywayRepo()
-                    sh 'ls -la'
+                    //sh 'ls -la'
                 }
             }
         }
@@ -49,6 +49,9 @@ pipeline {
                         echo "Current location:"
                         pwd
                         echo "Directory contents:"
+                        ls -la
+                        ls -la /flyway-deployer
+                        cd /flyway-deployer/
                         ls -la
                     '''
                     runFlywayMigrations(
