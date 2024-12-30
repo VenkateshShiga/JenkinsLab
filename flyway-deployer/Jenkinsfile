@@ -11,6 +11,17 @@ pipeline {
         string(name: 'VERSION', defaultValue: 'latest', description: 'Flyway deployment file version')
     }
     stages {
+        stage('Library Info') {
+            steps {
+                script {
+                    def libraryName = 'jk_shared_library'
+                    echo "Library source: ${library(libraryName).source}"
+                    sh """
+                        ls -la \${JENKINS_HOME}/workspace@libs/${libraryName}
+                    """
+                }
+            }
+        }
         stage('Clone Flyway Repository') {
             steps {
                 script {
