@@ -38,7 +38,8 @@ pipeline {
             agent {
                 docker {
                     image 'flyway/flyway:10.13'
-                    args '--entrypoint=\'\' -w /workspace'
+                    args '--entrypoint=\'\''
+                    reuseNode true
                 }
             }
             steps {
