@@ -14,11 +14,10 @@ pipeline {
         stage('Library Info') {
             steps {
                 script {
-                    def libraryName = 'jk_shared_library'
-                    echo "Library source: ${library(libraryName).source}"
-                    sh """
-                        ls -la \${JENKINS_HOME}/workspace@libs/${libraryName}
-                    """
+                    sh '''
+                        echo "Jenkins Home: $JENKINS_HOME"
+                        ls -la $JENKINS_HOME/workspace@libs/
+                    '''
                 }
             }
         }
