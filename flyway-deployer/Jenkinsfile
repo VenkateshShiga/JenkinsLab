@@ -38,7 +38,7 @@ pipeline {
             agent {
                 docker {
                     image 'flyway/flyway:10.13'
-                    '--entrypoint=\'\' -w /workspace'
+                    args '--entrypoint=\'\' -w /workspace'
                 }
             }
             steps {
