@@ -38,14 +38,19 @@ pipeline {
             agent {
                 docker {
                     image 'flyway/flyway:10.13'
-                    args '--entrypoint=\'\''
+                    '--entrypoint=\'\' -w /workspace'
                 }
             }
             steps {
                 script {
                     // Unstash the files needed for deployment
                     unstash 'Workspace-files'
-                    sh 'ls -la'
+                    sh '''
+                        echo "Current location:"
+                        pwd
+                        echo "Directory contents:"
+                        ls -la
+                    '''
                     runFlywayMigrations(
                         dbName: params.DB_NAME,
                         schemaName: params.SCHEMA_NAME,
