@@ -11,10 +11,10 @@ pipeline {
         string(name: 'VERSION', defaultValue: 'latest', description: 'Flyway deployment file version')
     }
     stages {
-        stage('Clone Flyway Repository') {
+        stage('Clone Files') {
             steps {
                 script {
-                    cloneFlywayRepo()
+                    cloneFiles()
                     //sh 'ls -la'
                 }
             }
