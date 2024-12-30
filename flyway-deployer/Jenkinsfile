@@ -50,8 +50,7 @@ pipeline {
                         pwd
                         echo "Directory contents:"
                         ls -la
-                        ls -la /flyway-deployer
-                        cd /flyway-deployer/
+                        cd flyway-deployer
                         ls -la
                     '''
                     runFlywayMigrations(
