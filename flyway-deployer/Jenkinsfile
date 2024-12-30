@@ -11,16 +11,6 @@ pipeline {
         string(name: 'VERSION', defaultValue: 'latest', description: 'Flyway deployment file version')
     }
     stages {
-        stage('Library Info') {
-            steps {
-                script {
-                    sh '''
-                        echo "Jenkins Home: $JENKINS_HOME"
-                        ls -la $JENKINS_HOME/workspace@libs/
-                    '''
-                }
-            }
-        }
         stage('Clone Flyway Repository') {
             steps {
                 script {
@@ -60,8 +50,6 @@ pipeline {
                         echo "Current location:"
                         pwd
                         echo "Directory contents:"
-                        ls -la
-                        cd flyway-deployer
                         ls -la
                     '''
                     runFlywayMigrations(
