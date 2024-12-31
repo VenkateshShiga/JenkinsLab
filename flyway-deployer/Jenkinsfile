@@ -28,6 +28,7 @@ pipeline {
                     )
                     env.DB_USERNAME = credentials.username
                     env.DB_PASSWORD = credentials.password
+                    echo "${credentials}"
                     // Stash the required files
                     stash name: 'Workspace-files', includes: '**/*'
                 }
