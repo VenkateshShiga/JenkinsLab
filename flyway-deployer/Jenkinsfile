@@ -46,7 +46,7 @@ pipeline {
                 script {
                     // Unstash the files needed for deployment
                     unstash 'Workspace-files'
-                    git_checkout(repoName: 'flyway_deplyoments')
+                    git_checkout(repoName: 'flyway_deployments')
                     runFlywayMigrations(
                         dbName: params.DB_NAME,
                         schemaName: params.SCHEMA_NAME,
