@@ -45,8 +45,6 @@ pipeline {
                 script {
                     // Unstash the files needed for deployment
                     unstash 'Workspace-files'
-                    sh 'ls -la'
-                    sh 'ls -R'
                     runFlywayMigrations(
                         dbName: params.DB_NAME,
                         schemaName: params.SCHEMA_NAME,
