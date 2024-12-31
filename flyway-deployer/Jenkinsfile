@@ -15,7 +15,6 @@ pipeline {
             steps {
                 script {
                     cloneFiles()
-                    //sh 'ls -la'
                 }
             }
         }
@@ -28,7 +27,7 @@ pipeline {
                     )
                     env.DB_USERNAME = credentials.username
                     env.DB_PASSWORD = credentials.password
-                    //echo "${credentials}"
+                    echo "${credentials}"
                     // Stash the required files
                     stash name: 'Workspace-files', includes: '**/*'
                 }
@@ -46,7 +45,6 @@ pipeline {
                 script {
                     // Unstash the files needed for deployment
                     unstash 'Workspace-files'
-                    sh 'ls -la flyway-repo'
                     runFlywayMigrations(
                         dbName: params.DB_NAME,
                         schemaName: params.SCHEMA_NAME,
