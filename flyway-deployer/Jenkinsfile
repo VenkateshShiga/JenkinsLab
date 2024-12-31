@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     cloneFiles()
-                    git_checkout(repoName: 'flyway_deployments')
+                    git_checkout()
                 }
             }
         }
